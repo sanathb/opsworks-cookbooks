@@ -1,17 +1,13 @@
-include_recipe 'spray::service'
-
 zip_filename = node[:spray][:app][:name] + '.zip'
 zip_filepath = node[:spray][:path] + '/' + zip_filename
 
-execute 'unzip spray' do
+bash 'move & unzip #{zip_filename} file' do
   cwd node[:spray][:path]
-  command 'unzip -o ' + zip_filename
-  action :run
-  only_if { ::File.exists?(zip_filepath) }
-  notifies :restart, "service[spray]"
-end
-
-file zip_filepath do
-  action :delete
-  only_if { ::File.exists?(zip_filepath) }
-end
+  user 'root'
+  code <<-EOH
+  mv -f ~/home/#{zip_filename} ./
+  unzip -o -j ./#{zip_filename}
+  /etc/init.d #{node[:spray][:app][:name]} restart
+  EOH
+  only_if { ::File.exists?('~/home/' + zip_filepath) }
+endr

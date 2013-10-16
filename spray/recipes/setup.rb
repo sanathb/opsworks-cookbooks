@@ -1,5 +1,3 @@
-include_recipe 'spray::service'
-
 package 'unzip' do
   action :install
 end
@@ -9,7 +7,6 @@ template '/etc/init.d/spray' do
   owner 'root'
   group 'root'
   mode 0755
-  notifies :enable, "service[spray]"
 end
 
 directory node[:spray][:path] + '/logs' do
