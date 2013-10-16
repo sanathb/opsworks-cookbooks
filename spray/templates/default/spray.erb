@@ -1,19 +1,32 @@
 #!/bin/bash
-# Path to the application
+
 APP_PATH=<%= node[:spray][:path] =%>
+JAR=<%= node[:spray][:app][:name] + '_' + node[:spray][:scala][:version] + '_' + node[:spray][:app][:version] + '.jar' =%>
+OPTION=<%= node[:spray][:java][:option] + ' -XX:-HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=$scriptdir/java_pid<pid>.hprof' =%>
 
 cd ${APP_PATH}
 
+
+do_start() {
+    exec java -jar ${APP_PATH}/${JAR} ${OPTION} > /dev/null 2>&1 &
+}
+
+do_stop() {
+    pid=`ps aux | grep <%= node[:spray][:app][:name] =%> | grep -v 'grep' | awk '{print $2}'`
+    kill -9 $pid
+}
+
+
 case $1 in
     start)
-        ${APP_PATH}/start
+        do_start()
     ;;
     stop)
-        ${APP_PATH}/stop
+        do_stop()
     ;;
     restart)
-        ${APP_PATH}/stop
-        ${APP_PATH}/start
+        do_stop()
+        do_start()
     ;;
 esac
 exit 0
