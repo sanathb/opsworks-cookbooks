@@ -6,8 +6,10 @@ bash 'move & unzip #{zip_filename} file' do
   user 'root'
   code <<-EOH
   mv -f ~/home/#{zip_filename} ./
-  unzip -o -j ./#{zip_filename}
+  unzip -o ./#{zip_filename}
+  mv -rf ./#{node[:spray][:app][:name] + '-' + node[:spray][:app][:version]}/* ./
+  rm -rf ./#{node[:spray][:app][:name] + '-' + node[:spray][:app][:version]}
   /etc/init.d #{node[:spray][:app][:name]} restart
   EOH
   only_if { ::File.exists?('~/home/' + zip_filepath) }
-endr
+end
