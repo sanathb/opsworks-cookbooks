@@ -2,7 +2,7 @@ package 'unzip' do
   action :install
 end
 
-template 'spray configuration' do
+template 'spray setup' do
   path value_for_platform(
     ['centos','redhat','fedora','amazon'] => {'default' => '/etc/init.d/spray'},
     'default' => '/etc/init.d/spray'
