@@ -1,4 +1,4 @@
-include_recipe 'spray::service'
+include_recipe 'service'
 
 zip_filename = node[:spray][:app][:name] + '.zip'
 zip_filepath = node[:spray][:path] + '/' + zip_filename
