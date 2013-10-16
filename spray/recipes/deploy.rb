@@ -19,6 +19,6 @@ bash 'unzip #{zip_filename} file' do
   	rm -rf ./#{node[:spray][:app][:name]}
 	mv ./#{node[:spray][:app][:name] + '-' + node[:spray][:app][:version]} ./#{node[:spray][:app][:name]}
 	rm -rf ./#{zip_filename}
-	/etc/init.d/#{node[:spray][:app][:name]} restart
+	/etc/init.d/#{node[:spray][:name]} restart
 	EOH
 end

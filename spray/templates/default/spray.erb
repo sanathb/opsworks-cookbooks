@@ -16,7 +16,9 @@ do_start() {
 
 do_stop() {
     pid=`ps aux | grep <%= node[:spray][:app][:name] =%> | grep -v 'grep' | awk '{print $2}'`
-    kill -9 $pid
+    if [[ -n "$pid" ]]; then
+        kill -9 $pid
+    fi
 }
 
 
