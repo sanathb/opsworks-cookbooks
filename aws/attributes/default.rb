@@ -20,3 +20,6 @@
 default['aws']['right_aws_version'] = "3.0.5"
 default['aws']['databag_name'] = "aws"
 default['aws']['databag_entry'] = "main"
+
+default['aws']['aws_access_key_id'] = ''
+default['aws']['aws_secret_access_key'] = ''

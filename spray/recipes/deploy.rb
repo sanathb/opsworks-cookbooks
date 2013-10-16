@@ -1,5 +1,4 @@
 include_recipe "aws"
-aws = data_bag_item("aws", "main")
 
 zip_filename = node[:spray][:app][:name] + '.zip'
 zip_filepath = node[:spray][:path] + '/' + zip_filename
@@ -7,8 +6,8 @@ zip_filepath = node[:spray][:path] + '/' + zip_filename
 aws_s3_file zip_filepath do
   bucket "opsworks.jenkins.apps"
   remote_path zip_filename
-  aws_access_key_id aws['aws_access_key_id']
-  aws_secret_access_key aws['aws_secret_access_key']
+  aws_access_key_id node['aws']['aws_access_key_id']
+  aws_secret_access_key node['aws']['aws_secret_access_key']
 end
 
 bash 'unzip #{zip_filename} file' do
