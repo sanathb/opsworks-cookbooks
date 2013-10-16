@@ -1,4 +1,5 @@
-include_recipe 'aws'
+include_recipe "aws"
+aws = data_bag_item("aws", "main")
 
 zip_filename = node[:spray][:app][:name] + '.zip'
 zip_filepath = node[:spray][:path] + '/' + zip_filename
