@@ -7,7 +7,7 @@ template 'spray configuration' do
   backup false
   owner 'root'
   group 'root'
-  mode 0644
+  mode 0755
 end
 
 directory node[:spray][:path] + '/logs' do
