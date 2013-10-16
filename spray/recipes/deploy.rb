@@ -4,11 +4,6 @@ zip_filename = node[:spray][:app][:name] + '.zip'
 zip_filepath = node[:spray][:path] + '/' + zip_filename
 
 node[:deploy].each do |application, deploy|
-  if deploy[:application_type] != 'custom'
-    Chef::Log.debug("Skipping deploy::custom application #{application} as it is not an custom spray app")
-    next
-  end
-
   opsworks_deploy_dir do
     user deploy[:user]
     group deploy[:group]
