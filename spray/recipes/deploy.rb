@@ -1,30 +1,22 @@
-include_recipe 'deploy'
+include_recipe 'aws'
 
 zip_filename = node[:spray][:app][:name] + '.zip'
 zip_filepath = node[:spray][:path] + '/' + zip_filename
 
-node[:deploy].each do |application, deploy|
-  opsworks_deploy_dir do
-    user deploy[:user]
-    group deploy[:group]
-    path deploy[:deploy_to]
-  end
+aws_s3_file zip_filepath do
+  bucket "opsworks.jenkins.apps"
+  remote_path zip_filename
+  aws_access_key_id aws['aws_access_key_id']
+  aws_secret_access_key aws['aws_secret_access_key']
+end
 
-  opsworks_deploy do
-    app application
-    deploy_data deploy
-  end
-
-  bash 'move & unzip #{zip_filename} file' do
-  	cwd node[:spray][:path]
-  	user 'root'
-  	code <<-EOH
-  	mv -f ~/home/#{zip_filename} ./
-  	unzip -o ./#{zip_filename}
-  	mv -rf ./#{node[:spray][:app][:name] + '-' + node[:spray][:app][:version]}/* ./
-  	rm -rf ./#{node[:spray][:app][:name] + '-' + node[:spray][:app][:version]}
-  	/etc/init.d #{node[:spray][:app][:name]} restart
-  	EOH
-  	only_if { ::File.exists?('~/home/' + zip_filepath) }
-  end
+bash 'unzip #{zip_filename} file' do
+	cwd node[:spray][:path]
+	user 'root'
+	code <<-EOH
+	unzip ./#{zip_filename}
+  rm -rf ./#{node[:spray][:app][:name]}
+	mv ./#{node[:spray][:app][:name] + '-' + node[:spray][:app][:version]} ./#{node[:spray][:app][:name]}
+	/etc/init.d #{node[:spray][:app][:name]} restart
+	EOH
 end
