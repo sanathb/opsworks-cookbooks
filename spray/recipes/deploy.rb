@@ -16,10 +16,10 @@ bash 'unzip #{zip_filename} file' do
 	user 'root'
 	code <<-EOH
 	/etc/init.d/#{node['spray']['name']} stop
-  	unzip -o ./#{zip_filename}
-  	mv ./#{node['spray']['app']['name']}/logs ./#{node['spray']['app']['name'] + '-' + node['spray']['app']['version']}/
-  	rm -rf ./#{node['spray']['app']['name']}
-  	rm -rf ./#{zip_filename}
+  unzip -o ./#{zip_filename}
+  mv ./#{node['spray']['app']['name']}/logs ./#{node['spray']['app']['name'] + '-' + node['spray']['app']['version']}/logs
+  rm -rf ./#{node['spray']['app']['name']}
+  rm -rf ./#{zip_filename}
 	mv ./#{node['spray']['app']['name'] + '-' + node['spray']['app']['version']} ./#{node['spray']['app']['name']}
 	/etc/init.d/#{node['spray']['name']} start
 	EOH
