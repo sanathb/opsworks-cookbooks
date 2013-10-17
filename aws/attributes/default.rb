@@ -23,3 +23,6 @@ default['aws']['databag_entry'] = "main"
 
 default['aws']['aws_access_key_id'] = ''
 default['aws']['aws_secret_access_key'] = ''
+
+default['aws']['bucket']['name'] = ''
+default['aws']['bucket']['file_path'] = ''
