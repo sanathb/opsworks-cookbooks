@@ -21,8 +21,6 @@ default['aws']['right_aws_version'] = "3.0.5"
 default['aws']['databag_name'] = "aws"
 default['aws']['databag_entry'] = "main"
 
-default['aws']['aws_access_key_id'] = ''
-default['aws']['aws_secret_access_key'] = ''
-
-default['aws']['bucket']['name'] = ''
-default['aws']['bucket']['file_path'] = ''
+default['aws']['access_key_id'] = 'aws.access_key_id'
+default['aws']['secret_access_key'] = 'aws.secret_access_key'
+default['aws']['bucket_name'] = 'aws.bucket_name'

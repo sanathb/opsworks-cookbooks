@@ -9,7 +9,7 @@ template '/etc/init.d/spray' do
   mode 0755
 end
 
-directory node[:spray][:path] do
+directory node['spray']['path'] do
   owner 'root'
   group 'root'
   mode 0755
