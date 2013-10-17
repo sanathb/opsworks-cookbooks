@@ -1,4 +1,5 @@
 include_recipe "aws"
+include_recipe "spray::setup"
 
 zip_filename = node['spray']['app']['name'] + '.zip'
 zip_filepath = node['spray']['path'] + '/' + zip_filename
@@ -15,11 +16,11 @@ bash 'unzip #{zip_filename} file' do
 	user 'root'
 	code <<-EOH
 	/etc/init.d/#{node['spray']['name']} stop
-	chmod 755 ./#{zip_filename}
-  	unzip ./#{zip_filename}
+  	unzip -o ./#{zip_filename}
+  	mv ./#{node['spray']['app']['name']}/logs ./#{node['spray']['app']['name'] + '-' + node['spray']['app']['version']}/
   	rm -rf ./#{node['spray']['app']['name']}
+  	rm -rf ./#{zip_filename}
 	mv ./#{node['spray']['app']['name'] + '-' + node['spray']['app']['version']} ./#{node['spray']['app']['name']}
-	rm -rf ./#{zip_filename}
 	/etc/init.d/#{node['spray']['name']} start
 	EOH
 end
