@@ -1,10 +1,10 @@
 #!/bin/bash
 
-APP_PATH=<%= node['spray']['path'] + '/' + node['spray']['app']['name'] =%>
+APP_PATH=<%= node['spray']['path'] =%>
 
-JAR="<%= node['spray']['app']['name'] + '_' + node['spray']['scala']['version'] + '-' + node['spray']['app']['version'] + '.jar' =%>"
+JAR="<%= node['spray']['app']['name'] + '.jar' =%>"
 
-OPTION="<%= node['spray']['java']['option'] + ' -XX:-HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=' + node['spray']['path'] + '/' + node['spray']['app']['name'] + '/java_pid<pid>.hprof' =%>"
+OPTION="<%= node['spray']['java']['option'] + ' -XX:-HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=' + node['spray']['path'] + '/java_pid<pid>.hprof' =%>"
 
 
 cd ${APP_PATH}

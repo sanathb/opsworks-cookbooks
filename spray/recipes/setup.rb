@@ -1,6 +1,3 @@
-package 'unzip' do
-  action :install
-end
 
 template '/etc/init.d/spray' do
   source 'spray.erb'
