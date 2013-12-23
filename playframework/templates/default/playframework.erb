@@ -1,0 +1,37 @@
+#!/bin/bash
+
+APP_PATH=<%= node['playframework']['path'] =%>
+
+SCRIPT="<%= node['playframework']['app']['name'] + '/bin/' + node['playframework']['app']['name'] =%>"
+
+OPTION="<%= node['playframework']['java']['option'] + ' -J-XX:-HeapDumpOnOutOfMemoryError -J-XX:HeapDumpPath=' + node['playframework']['path'] + '/java_pid<pid>.hprof' =%>"
+
+
+cd ${APP_PATH}
+
+
+do_start() {
+    exec ${APP_PATH}/${SCRIPT} ${OPTION} > /dev/null 2>&1 &
+}
+
+do_stop() {
+    pid=`ps aux | grep <%= node['playframework']['app']['name'] =%> | grep -v 'grep' | awk '{print $2}'`
+    if [[ -n "$pid" ]]; then
+        kill -9 $pid
+    fi
+}
+
+
+case $1 in
+    start)
+        do_start
+        ;;
+    stop)
+        do_stop
+        ;;
+    restart)
+        do_stop
+        do_start
+        ;;
+esac
+exit 0
