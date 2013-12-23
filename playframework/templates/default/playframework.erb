@@ -4,14 +4,14 @@ APP_PATH=<%= node['playframework']['path'] =%>
 
 SCRIPT="<%= node['playframework']['app']['name'] + '/bin/' + node['playframework']['app']['name'] =%>"
 
-OPTION="<%= node['playframework']['java']['option'] + ' -J-XX:-HeapDumpOnOutOfMemoryError -J-XX:HeapDumpPath=' + node['playframework']['path'] + '/java_pid<pid>.hprof' =%>"
+OPTION="<%= node['playframework']['java']['option'] =%>"
 
 
 cd ${APP_PATH}
 
 
 do_start() {
-    exec ${APP_PATH}/${SCRIPT} ${OPTION} > /dev/null 2>&1 &
+    exec ${APP_PATH}/${SCRIPT} ${OPTION} > &
 }
 
 do_stop() {

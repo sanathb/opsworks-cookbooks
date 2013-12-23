@@ -12,10 +12,10 @@ aws_s3_file filepath do
 end
 
 bash 'restart #{filename}' do
-	cwd node['spray']['path']
-	user 'root'
-	code <<-EOH
-	/etc/init.d/#{node['spray']['name']} stop
-	/etc/init.d/#{node['spray']['name']} start
-	EOH
+  cwd node['spray']['path']
+  user 'root'
+  code <<-EOH
+    /etc/init.d/#{node['spray']['name']} stop
+    /etc/init.d/#{node['spray']['name']} start
+  EOH
 end

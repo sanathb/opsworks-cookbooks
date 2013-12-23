@@ -1,7 +1,7 @@
 include_recipe "aws"
 include_recipe "playframework::setup"
 
-filedir = node['playframework']['app']['name']
+filedir = node['playframework']['app']['name'] +'-' + node['playframework']['app']['version']
 filename = node['playframework']['app']['name'] +'-' + node['playframework']['app']['version'] + '.zip'
 filepath = node['playframework']['path'] + '/' + filename
 
@@ -16,10 +16,10 @@ bash 'unzip & restart #{filename}' do
   cwd node['playframework']['path']
   user 'root'
   code <<-EOH
-  /etc/init.d/#{node['playframework']['name']} stop
-  rm -rf ./#{node['playframework']['app']['name']}
-  unzip -o ./#{filename}
-  mv ./#{filedir} ./#{node['playframework']['app']['name']}
-  /etc/init.d/#{node['playframework']['name']} start
+    /etc/init.d/#{node['playframework']['name']} stop
+    rm -rf ./#{node['playframework']['app']['name']}
+    unzip -o ./#{filename}
+    mv ./#{filedir} ./#{node['playframework']['app']['name']}
+    /etc/init.d/#{node['playframework']['name']} start
   EOH
 end
