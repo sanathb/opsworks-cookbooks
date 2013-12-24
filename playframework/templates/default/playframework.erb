@@ -11,7 +11,7 @@ cd ${APP_PATH}
 
 
 do_start() {
-    exec ${APP_PATH}/${SCRIPT} ${OPTION} > &
+    exec ${APP_PATH}/${SCRIPT} ${OPTION} &
 }
 
 do_stop() {
