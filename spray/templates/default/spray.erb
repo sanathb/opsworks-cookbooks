@@ -11,7 +11,7 @@ cd ${APP_PATH}
 
 
 do_start() {
-    exec java -jar ${APP_PATH}/${JAR} ${OPTION} > logs/app.log 2>&1 &
+    exec java -jar ${APP_PATH}/${JAR} ${OPTION} > /dev/null 2>&1 &
 }
 
 do_stop() {
