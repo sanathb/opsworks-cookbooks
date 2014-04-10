@@ -1,6 +1,6 @@
 #!/bin/bash
 
-APP_PATH=<%= node['spray']['path'] =%>
+APP_PATH=<%= node['spray']['path'] + '/' + node['spray']['app']['name'] =%>
 
 SCRIPT="<%= node['spray']['app']['name'] + '/bin/' + node['spray']['app']['name'] =%>"
 
