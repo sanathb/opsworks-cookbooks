@@ -2,16 +2,16 @@
 
 APP_PATH=<%= node['spray']['path'] =%>
 
-JAR="<%= node['spray']['app']['name'] + '.jar' =%>"
+SCRIPT="<%= node['spray']['app']['name'] + '/bin/' + node['spray']['app']['name'] =%>"
 
-OPTION="<%= node['spray']['java']['option'] + ' -XX:-HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=' + node['spray']['path'] + '/java_pid<pid>.hprof' =%>"
+OPTION="<%= node['spray']['java']['option'] =%>"
 
 
 cd ${APP_PATH}
 
 
 do_start() {
-    exec java -jar ${APP_PATH}/${JAR} ${OPTION} > /dev/null 2>&1 &
+    exec ${APP_PATH}/${SCRIPT} ${OPTION} &
 }
 
 do_stop() {

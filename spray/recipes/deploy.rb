@@ -1,7 +1,8 @@
 include_recipe "aws"
 include_recipe "spray::setup"
 
-filename = node['spray']['app']['name'] + '.jar'
+filedir = node['spray']['app']['name'] +'-' + node['spray']['app']['version']
+filename = node['spray']['app']['name'] +'-' + node['spray']['app']['version'] + '.tgz'
 filepath = node['spray']['path'] + '/' + filename
 
 aws_s3_file filepath do
@@ -17,6 +18,10 @@ bash 'restart ' + filename do
   environment 'LC_ALL' => 'en_US.UTF-8',
               'JAVA_TOOL_OPTIONS' => '-Dfile.encoding=UTF-8'
   code <<-EOH
-    /etc/init.d/#{node['spray']['name']} restart
+    /etc/init.d/#{node['spray']['name']} stop
+    rm -rf ./#{node['spray']['app']['name']}
+    tar xvzf ./#{filename}
+    mv ./#{filedir} ./#{node['spray']['app']['name']}
+    /etc/init.d/#{node['spray']['name']} start
   EOH
 end
