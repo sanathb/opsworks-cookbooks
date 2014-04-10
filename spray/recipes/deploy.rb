@@ -20,6 +20,7 @@ bash 'restart ' + filename do
     rm -rf ./#{node['spray']['app']['name']}
     tar xvzf ./#{filename}
     mv ./#{filedir} ./#{node['spray']['app']['name']}
+    chown -hR root:root ./#{node['spray']['app']['name']}
     /etc/init.d/#{node['spray']['name']} start
   EOH
 end
