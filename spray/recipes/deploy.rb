@@ -15,14 +15,11 @@ end
 bash 'restart ' + filename do
   cwd node['spray']['path']
   user 'root'
-  environment 'LC_ALL' => 'en_US.UTF-8',
-              'JAVA_TOOL_OPTIONS' => '-Dfile.encoding=UTF-8'
   code <<-EOH
     /etc/init.d/#{node['spray']['name']} stop
     rm -rf ./#{node['spray']['app']['name']}
     tar xvzf ./#{filename}
     mv ./#{filedir} ./#{node['spray']['app']['name']}
-    chown -hR root ./#{node['spray']['app']['name']}
     /etc/init.d/#{node['spray']['name']} start
   EOH
 end
