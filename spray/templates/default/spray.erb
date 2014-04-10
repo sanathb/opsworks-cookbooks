@@ -11,7 +11,7 @@ USER=root
 cd ${APP_PATH}
 
 do_start() {
-    exec ${APP_PATH}/${SCRIPT} ${OPTION} &
+    exec ${APP_PATH}/${SCRIPT} ${OPTION} > /dev/null 2>&1 &
 }
 
 do_stop() {
