@@ -12,7 +12,7 @@ aws_s3_file filepath do
   aws_secret_access_key node['aws']['secret_access_key']
 end
 
-bash 'restart ' + filename do
+bash 'unzip & restart ' + filename do
   cwd node['spray']['path']
   user 'root'
   code <<-EOH
