@@ -21,7 +21,7 @@ end
 newrelic_filename = node['spray']['app']['name'] +'-' + 'newrelic-agent.zip'
 
 aws_s3_file '/var/' + newrelic_filename do
-  only_if node['spray']['app']['newrelic']
+  only_if { node['spray']['app']['newrelic'] }
   bucket node['aws']['bucket_name']
   remote_path newrelic_filename
   aws_access_key_id node['aws']['access_key_id']
@@ -29,7 +29,7 @@ aws_s3_file '/var/' + newrelic_filename do
 end
 
 bash 'unzip newrelic ' do
-  only_if node['spray']['app']['newrelic']
+  only_if { node['spray']['app']['newrelic'] }
   cwd '/var'
   user 'root'
   code <<-EOH
